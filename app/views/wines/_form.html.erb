@@ -16,14 +16,19 @@
     <%= form.text_field :name %>
   </div>
 
-  <div class="field" id="wines_strains">
-    <%= form.fields_for :wines_strains do |ff|  %>
-      <%= render 'wines_strain_fields', f: ff %>
-    <% end %>
-  </div>
-
-  <div class="links">
-    <%= link_to_add_association 'Agrega Cepa', form, :wines_strains %>
+  <div class="field">
+    <%= form.label :strains, "Cepas" %>
+    <br>
+    <%= form.collection_check_boxes(:strain_ids,
+                                    @strains_availables,
+                                    :id, :name) do |b| %>
+                                        <%= b.label class:"label-checkbox" do%>
+                                          <%=b.check_box + b.text%>
+                                          <%= text_field("wine[strains_percent]", b.value, value: @wine.getPercentageByStrainId(b.value))%>
+                                          <br>
+                                        <%end%>
+                                        <br>
+                                    <% end %>
   </div>
 
   <div class="actions">

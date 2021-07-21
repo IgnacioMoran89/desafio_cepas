@@ -1,5 +1,6 @@
 class WinesController < ApplicationController
   before_action :set_wine, only: %i[ show edit update destroy ]
+  before_action :only_strains_availables, only: [:new, :edit]
 
 
   # GET /wines or /wines.json
@@ -14,8 +15,6 @@ class WinesController < ApplicationController
   # GET /wines/new
   def new
     @wine = Wine.new
-    @strains = Strain.all
-    @wine.wines_strains.build
   end
 
   # GET /wines/1/edit
@@ -29,6 +28,7 @@ class WinesController < ApplicationController
 
     respond_to do |format|
       if @wine.save
+        @wine.addStrainPercent(params[:wine][:strains_percent])
         format.html { redirect_to @wine, notice: "Wine was successfully created." }
         format.json { render :show, status: :created, location: @wine }
       else
@@ -68,7 +68,11 @@ class WinesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def wine_params
-      params.require(:wine).permit(:name, wines_strains_attributes: [:id, :strain_id, :percent])
+      params.require(:wine).permit(:name, {strain_ids: []}, :strains_percent )
+    end
+
+    def only_strains_availables
+      @strains_availables = Strain.where(available: true)
     end
 
 end

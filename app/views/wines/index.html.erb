@@ -15,6 +15,13 @@
     <% @wines.each do |wine| %>
       <tr>
         <td><%= wine.name %></td>
+        <td>
+          <ul>
+            <% wine.strains.order(:name).each do |s| %>
+              <li><%= "#{s.name} (#{wine.getPercentageByStrainId(s.id)}%)" %></li>
+            <% end %>
+          </ul>
+        </td>
         <td><%= link_to 'Show', wine %></td>
         <td><%= link_to 'Edit', edit_wine_path(wine) %></td>
         <td><%= link_to 'Destroy', wine, method: :delete, data: { confirm: 'Are you sure?' } %></td>
