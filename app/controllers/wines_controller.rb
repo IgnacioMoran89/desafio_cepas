@@ -5,6 +5,7 @@ class WinesController < ApplicationController
 
   # GET /wines or /wines.json
   def index
+    @wines = Wine.eager_load(:strain) #disminuye las consultas en el index (N+1 query)
     @wines = Wine.all
   end
 

@@ -14,7 +14,7 @@ class Wine < ApplicationRecord
         end
     end
 
-    def getPercentageByStrainId(strain_id)
+    def getPercentByStrainId(strain_id)
         if self.wines_strains.where(strain_id: strain_id.to_i).first
             self.wines_strains.where(strain_id: strain_id.to_i).first.percent
         end

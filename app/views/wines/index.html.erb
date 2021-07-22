@@ -18,7 +18,7 @@
         <td>
           <ul>
             <% wine.strains.order(:name).each do |s| %>
-              <li><%= "#{s.name} (#{wine.getPercentageByStrainId(s.id)}%)" %></li>
+              <li><%= "#{s.name} (#{wine.getPercentByStrainId(s.id)}%)" %></li>
             <% end %>
           </ul>
         </td>
@@ -32,4 +32,5 @@
 
 <br>
 
-<%= link_to 'New Wine', new_wine_path %>
+<%= link_to 'Nuevo Vino', new_wine_path %>
+<%= link_to 'Nueva Cepa', new_strain_path %>
