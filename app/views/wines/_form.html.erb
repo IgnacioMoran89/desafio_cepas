@@ -24,7 +24,7 @@
                                     :id, :name) do |b| %>
                                         <%= b.label class:"label-checkbox" do%>
                                           <%=b.check_box + b.text%>
-                                          <%= text_field("wine[strains_percent]", b.value, value: @wine.getPercentageByStrainId(b.value))%>
+                                          <%= text_field("wine[strains_percent]", b.value, value: @wine.getPercentByStrainId(b.value))%>
                                           <br>
                                         <%end%>
                                         <br>
