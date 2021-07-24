@@ -43,6 +43,7 @@ class WinesController < ApplicationController
   def update
     respond_to do |format|
       if @wine.update(wine_params)
+        @wine.addStrainPercent(params[:wine][:strains_percent])
         format.html { redirect_to @wine, notice: "Wine was successfully updated." }
         format.json { render :show, status: :ok, location: @wine }
       else
